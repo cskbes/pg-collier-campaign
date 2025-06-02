@@ -236,7 +236,7 @@
 
                 <div class="email-preview">
                     <h4>📋 Email Preview</h4>
-                    <div><strong>To:</strong> <span id="previewRecipient">Region West Superintendent Dr. Collier</span></div>
+                    <div><strong>To:</strong> <span id="previewRecipient">cskbes@gmail.com</span></div>
                     <div><strong>Subject:</strong> <span id="previewSubject">Urgent Request for Intervention - Principal Garmon Removal - Broadway Elementary</span></div>
                     <div class="email-content" id="previewContent">
 Dear <strong>Dr. Collier</strong>:
@@ -287,7 +287,7 @@ Parent of Broadway Elementary School Student
             const userName = document.getElementById('userName').value || '[USER_NAME]';
             
             // Fixed values for campaign
-            const recipient = 'Region West Superintendent Dr. Collier';
+            const recipient = 'cskbes@gmail.com';
             const subject = 'Urgent Request for Intervention - Principal Garmon Removal - Broadway Elementary';
             const template = `Dear <strong>Dr. Collier</strong>:
 
@@ -376,11 +376,13 @@ Parent of Broadway Elementary School Student</p>`;
                 };
 
                 console.log('Sending email to Dr. Collier:', recipientEmail);
+                console.log('Email params:', emailParams);
                 const response = await emailjs.send(
                     EMAILJS_SERVICE_ID,
                     EMAILJS_TEMPLATE_ID,
                     emailParams
                 );
+                console.log('Email sent successfully:', response);
 
                 // SECOND EMAIL: Send confirmation to sender
                 const confirmationTemplate = `<p>Hi <strong>${userName}</strong>,</p>
@@ -424,7 +426,8 @@ Support Principal Garmon Campaign Team</p>`;
 
             } catch (error) {
                 console.error('Error sending email:', error);
-                showStatus('❌ Failed to send email. Please try again or contact support.', true);
+                console.error('Error details:', error.text || error.message);
+                showStatus(`❌ Failed to send email: ${error.text || error.message || 'Unknown error'}. Please try again or contact support.`, true);
             } finally {
                 sendButton.disabled = false;
                 sendButton.textContent = '🚀 Send Email to Dr. Collier';
