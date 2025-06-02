@@ -117,7 +117,7 @@
             background: #f8f9fa;
             padding: 20px;
             border-radius: 8px;
-            white-space: pre-wrap;
+            white-space: pre-line;
             font-family: Arial, sans-serif;
             font-size: 14px;
             line-height: 1.5;
@@ -288,6 +288,37 @@ Parent of Broadway Elementary School Student
             // Fixed values for campaign
             const recipient = 'cskbes@gmail.com';
             const subject = 'Request for Intervention: Opposition to Removal of Principal Garmon from Broadway Elementary';
+            
+            // Preview template with normal line breaks
+            const previewTemplate = `Dear Dr. Collier:
+
+As a parent at Broadway Elementary School in Region West, I am writing to request your intervention regarding the District's decision to remove Principal Garmon from our school. Given your direct oversight of Broadway Elementary, your leadership in reversing this misguided decision is crucial. This appears to be a transparent attempt to scapegoat Principal Garmon for systemic failures that predate her leadership.
+
+Principal Garmon has demonstrated unwavering dedication throughout her 10+ year tenure and possesses irreplaceable understanding of our dual language immersion programs. As Region West Superintendent, you know the complicated dynamics between our programs existed long before her leadership---she has skillfully navigated these complexities despite District constraints.
+
+Replacing Principal Garmon will exacerbate, rather than resolve, the underlying issues she inherited from years of LAUSD decisions. This decision represents a failure to address the real systemic issues and takes the easy path of removing a dedicated principal. Removing Principal Garmon would devastate the school and inflame existing tensions.
+
+The District needs to find a real solution to Broadway's systemic challenges, but removing our experienced principal is not it. I urge you to use your authority as Region West Superintendent to advocate for reconsidering this decision and instead work collaboratively with Principal Garmon to address the systemic issues that face our school. Your voice and advocacy for our school community matters tremendously.
+
+Sincerely,
+
+${userName}
+
+Parent of Broadway Elementary School Student`;
+
+            previewRecipient.textContent = recipient;
+            previewSubject.textContent = subject;
+            
+            // Show preview with bold formatting
+            previewContent.innerHTML = previewTemplate
+                .replace(/Dr\. Collier/g, '<strong>Dr. Collier</strong>')
+                .replace(/Given your direct oversight.*?predate her leadership\./g, '<strong>        // Update preview in real-time
+        function updatePreview() {
+            const userName = document.getElementById('userName').value || '[USER_NAME]';
+            
+            // Fixed values for campaign
+            const recipient = 'cskbes@gmail.com';
+            const subject = 'Request for Intervention: Opposition to Removal of Principal Garmon from Broadway Elementary';
             const template = `Dear <strong>Dr. Collier</strong>:
 
 As a parent at Broadway Elementary School in Region West, I am writing to request your intervention regarding the District's decision to remove Principal Garmon from our school. <strong>Given your direct oversight of Broadway Elementary, your leadership in reversing this misguided decision is crucial. This appears to be a transparent attempt to scapegoat Principal Garmon for systemic failures that predate her leadership.</strong>
@@ -318,6 +349,13 @@ Parent of Broadway Elementary School Student`;
             // Replace placeholders and display HTML content properly in preview
             let processedContent = template.replace(/\[USER_NAME\]/g, userName);
             previewContent.innerHTML = processedContent;
+        }</strong>')
+                .replace(/As Region West Superintendent, you know/g, '<strong>As Region West Superintendent, you know</strong>')
+                .replace(/Replacing Principal Garmon will exacerbate.*?underlying issues/g, '<strong>Replacing Principal Garmon will exacerbate, rather than resolve, the underlying issues</strong>')
+                .replace(/This decision represents a failure to address the real systemic issues/g, '<strong>This decision represents a failure to address the real systemic issues</strong>')
+                .replace(/Removing Principal Garmon would devastate the school and inflame existing tensions\./g, '<strong>Removing Principal Garmon would devastate the school and inflame existing tensions.</strong>')
+                .replace(/The District needs to find a real solution.*?is not it\./g, '<strong>The District needs to find a real solution to Broadway\'s systemic challenges, but removing our experienced principal is not it.</strong>')
+                .replace(/Your voice and advocacy for our school community matters tremendously\./g, '<strong>Your voice and advocacy for our school community matters tremendously.</strong>');
         }
 
         // Add event listeners for real-time preview
