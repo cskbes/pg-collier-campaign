@@ -416,7 +416,7 @@ Parent of Broadway Elementary School Student`;
 
 Thank you for requesting intervention for Principal Garmon!
 
-Your email has been successfully sent to the Region West Superintendent (cskbes@gmail.com) with the following details:
+Your email has been successfully sent to Dr. Collier, Region West Superintendent (cskbes@gmail.com) with the following details:
 
 Subject: Request for Intervention: Opposition to Removal of Principal Garmon from Broadway Elementary
 Sent at: ${new Date().toLocaleString()}
@@ -424,7 +424,7 @@ Sent at: ${new Date().toLocaleString()}
 Here's a copy of what was sent:
 
 ---
-${template}
+${template.replace(/<strong>/g, '').replace(/<\/strong>/g, '')}
 ---
 
 Thank you for your advocacy in supporting Principal Garmon at Broadway Elementary School!
