@@ -390,16 +390,19 @@ ${userName}
 
 Parent of Broadway Elementary School Student`;
 
-                // FIRST EMAIL: Send to Region West Superintendent
+                // Process the email content
+                const emailContent = template;
+
+                // Prepare email parameters
                 const emailParams = {
                     to_email: recipientEmail,
                     from_name: userName,
                     from_email: userEmail,
                     subject: subject,
-                    message: template
+                    message: emailContent
                 };
 
-                console.log('Sending email to Region West Superintendent:', recipientEmail);
+                console.log('Sending email to Dr. Collier:', recipientEmail);
                 const response = await emailjs.send(
                     EMAILJS_SERVICE_ID,
                     EMAILJS_TEMPLATE_ID,
@@ -424,7 +427,7 @@ Sent at: ${new Date().toLocaleString()}
 Here's a copy of what was sent:
 
 ---
-${template.replace(/<strong>/g, '').replace(/<\/strong>/g, '')}
+${emailContent}
 ---
 
 Thank you for your advocacy in supporting Principal Garmon at Broadway Elementary School!
