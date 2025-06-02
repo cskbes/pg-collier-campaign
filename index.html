@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Support Principal Garmon - Request for Intervention</title>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #2c3e50, #34495e);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.2em;
+            margin-bottom: 10px;
+            font-weight: 300;
+        }
+
+        .header p {
+            opacity: 0.9;
+            font-size: 1.1em;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .form-section {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            border-left: 4px solid #667eea;
+        }
+
+        .form-section h3 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-size: 1.3em;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #555;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .email-preview {
+            background: #fff;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 25px;
+            margin: 20px 0;
+        }
+
+        .email-preview h4 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #eee;
+        }
+
+        .email-content {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            white-space: pre-wrap;
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .email-content strong {
+            font-weight: bold;
+        }
+
+        .send-button {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: block;
+            margin: 30px auto 0;
+            min-width: 200px;
+        }
+
+        .send-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .send-button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .status-message {
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: 600;
+            display: none;
+        }
+
+        .status-success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .status-error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                margin: 10px;
+                border-radius: 10px;
+            }
+            
+            .header {
+                padding: 20px;
+            }
+            
+            .header h1 {
+                font-size: 1.8em;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .form-section {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📧 Request for Intervention</h1>
+            <p>Send your message to Region West Superintendent requesting intervention for Principal Garmon</p>
+        </div>
+
+        <div class="content">
+            <form id="emailForm">
+                <div class="form-section">
+                    <h3>👤 Your Information</h3>
+                    
+                    <div class="form-group">
+                        <label for="userName">Your Full Name *</label>
+                        <input type="text" id="userName" name="userName" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="userEmail">Your Email Address *</label>
+                        <input type="email" id="userEmail" name="userEmail" required>
+                    </div>
+                </div>
+
+                <div class="email-preview">
+                    <h4>📋 Email Preview</h4>
+                    <div><strong>To:</strong> <span id="previewRecipient">cskbes@gmail.com</span></div>
+                    <div><strong>Subject:</strong> <span id="previewSubject">Request for Intervention: Opposition to Removal of Principal Garmon from Broadway Elementary</span></div>
+                    <div class="email-content" id="previewContent">
+As a parent at Broadway Elementary School in Region West, I am writing to request your intervention regarding the District's decision to remove Principal Garmon from our school. <strong>Given your direct oversight of Broadway Elementary, your leadership in reversing this misguided decision is crucial.</strong>
+
+<strong>This appears to be a transparent attempt to scapegoat Principal Garmon for systemic failures that predate her leadership.</strong>
+
+Principal Garmon has demonstrated unwavering dedication to Broadway Elementary School throughout her tenure of over 10 years. Her commitment to our students, staff, and families has been evident even during the challenging circumstances of the past two years. She is a responsive, empathetic and tirelessly dedicated leader <strong>who has been forced to manage crises not of her making</strong>.
+
+Perhaps most importantly, Principal Garmon possesses an irreplaceable understanding of Broadway Elementary's unique history and complex needs. She has witnessed firsthand the evolution of our school and the development of our dual language immersion programs. This institutional knowledge cannot be easily transferred to a new administrator who would be starting from scratch.
+
+<strong>As Region West Superintendent, you understand that</strong> the complicated dynamics between our two language immersion programs have existed for over 10 years—long before Principal Garmon's leadership. These are systemic issues that require nuanced leadership and deep understanding of each program's distinct needs and challenges. Principal Garmon has navigated these complexities with skill and has worked diligently to bridge gaps between the programs, despite the constraints placed upon her by the District throughout her tenure following the UCP complaint filed only six weeks into her principalship.
+
+Replacing Principal Garmon with an outsider who lacks this crucial background knowledge and experience with dual language immersion programs will exacerbate, rather than resolve, the underlying issues our school faces—issues she inherited (not created) due to decisions made by LAUSD over the years. The funding disparities, enrollment challenges, and program tensions that currently exist will not simply disappear with a change in leadership—they require thoughtful, informed solutions from someone who truly understands our school's unique context.
+
+<strong>This decision represents a failure to address the real systemic issues.</strong> Instead of confronting the difficult work of addressing systemic inequities and decades of poor planning, this action takes the easy path of removing a dedicated principal who is trying to make the best of an impossible situation created by District policies.
+
+<strong>The real issue is historical District decisions and actions, not her leadership. Removing Principal Garmon would devastate the school, continue the pattern of neglect toward Broadway, and inflame rather than reduce existing tensions.</strong>
+
+I urge you to use your authority as Region West Superintendent to advocate for reconsidering this decision and instead work collaboratively with Principal Garmon to address the systemic issues that face our school. Her expertise, dedication, and institutional knowledge make her the right person to lead Broadway Elementary through these challenges.
+
+<strong>Your voice and advocacy for our school community matters tremendously.</strong>
+
+Sincerely,
+
+[USER_NAME]
+
+Parent of Broadway Elementary School Student
+                    </div>
+                </div>
+
+                <div class="status-message" id="statusMessage"></div>
+
+                <button type="submit" class="send-button" id="sendButton">
+                    🚀 Send Email to Region West Superintendent
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // EmailJS Configuration
+        const EMAILJS_SERVICE_ID = 'service_zf9dbpb';
+        const EMAILJS_TEMPLATE_ID = 'template_lbu5q5p';
+        const EMAILJS_PUBLIC_KEY = 'G8WFX-uXZXqyByVNE';
+
+        // Initialize EmailJS
+        emailjs.init(EMAILJS_PUBLIC_KEY);
+
+        // Form elements
+        const form = document.getElementById('emailForm');
+        const sendButton = document.getElementById('sendButton');
+        const statusMessage = document.getElementById('statusMessage');
+
+        // Preview elements
+        const previewRecipient = document.getElementById('previewRecipient');
+        const previewSubject = document.getElementById('previewSubject');
+        const previewContent = document.getElementById('previewContent');
+
+        // Update preview in real-time
+        function updatePreview() {
+            const userName = document.getElementById('userName').value || '[USER_NAME]';
+            
+            // Fixed values for campaign
+            const recipient = 'cskbes@gmail.com';
+            const subject = 'Request for Intervention: Opposition to Removal of Principal Garmon from Broadway Elementary';
+            const template = `As a parent at Broadway Elementary School in Region West, I am writing to request your intervention regarding the District's decision to remove Principal Garmon from our school. <strong>Given your direct oversight of Broadway Elementary, your leadership in reversing this misguided decision is crucial.</strong>
+
+<strong>This appears to be a transparent attempt to scapegoat Principal Garmon for systemic failures that predate her leadership.</strong>
+
+Principal Garmon has demonstrated unwavering dedication to Broadway Elementary School throughout her tenure of over 10 years. Her commitment to our students, staff, and families has been evident even during the challenging circumstances of the past two years. She is a responsive, empathetic and tirelessly dedicated leader <strong>who has been forced to manage crises not of her making</strong>.
+
+Perhaps most importantly, Principal Garmon possesses an irreplaceable understanding of Broadway Elementary's unique history and complex needs. She has witnessed firsthand the evolution of our school and the development of our dual language immersion programs. This institutional knowledge cannot be easily transferred to a new administrator who would be starting from scratch.
+
+<strong>As Region West Superintendent, you understand that</strong> the complicated dynamics between our two language immersion programs have existed for over 10 years—long before Principal Garmon's leadership. These are systemic issues that require nuanced leadership and deep understanding of each program's distinct needs and challenges. Principal Garmon has navigated these complexities with skill and has worked diligently to bridge gaps between the programs, despite the constraints placed upon her by the District throughout her tenure following the UCP complaint filed only six weeks into her principalship.
+
+Replacing Principal Garmon with an outsider who lacks this crucial background knowledge and experience with dual language immersion programs will exacerbate, rather than resolve, the underlying issues our school faces—issues she inherited (not created) due to decisions made by LAUSD over the years. The funding disparities, enrollment challenges, and program tensions that currently exist will not simply disappear with a change in leadership—they require thoughtful, informed solutions from someone who truly understands our school's unique context.
+
+<strong>This decision represents a failure to address the real systemic issues.</strong> Instead of confronting the difficult work of addressing systemic inequities and decades of poor planning, this action takes the easy path of removing a dedicated principal who is trying to make the best of an impossible situation created by District policies.
+
+<strong>The real issue is historical District decisions and actions, not her leadership. Removing Principal Garmon would devastate the school, continue the pattern of neglect toward Broadway, and inflame rather than reduce existing tensions.</strong>
+
+I urge you to use your authority as Region West Superintendent to advocate for reconsidering this decision and instead work collaboratively with Principal Garmon to address the systemic issues that face our school. Her expertise, dedication, and institutional knowledge make her the right person to lead Broadway Elementary through these challenges.
+
+<strong>Your voice and advocacy for our school community matters tremendously.</strong>
+
+Sincerely,
+
+${userName}
+
+Parent of Broadway Elementary School Student`;
+
+            previewRecipient.textContent = recipient;
+            previewSubject.textContent = subject;
+            
+            // Replace placeholders and display HTML content properly in preview
+            let processedContent = template.replace(/\[USER_NAME\]/g, userName);
+            previewContent.innerHTML = processedContent;
+        }
+
+        // Add event listeners for real-time preview
+        ['userName', 'userEmail'].forEach(id => {
+            document.getElementById(id).addEventListener('input', updatePreview);
+        });
+
+        // Initial preview update
+        updatePreview();
+
+        // Show status message
+        function showStatus(message, isError = false) {
+            statusMessage.textContent = message;
+            statusMessage.className = `status-message ${isError ? 'status-error' : 'status-success'}`;
+            statusMessage.style.display = 'block';
+            
+            setTimeout(() => {
+                statusMessage.style.display = 'none';
+            }, 5000);
+        }
+
+        // Handle form submission
+        form.addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            sendButton.disabled = true;
+            sendButton.textContent = '⏳ Sending...';
+
+            try {
+                const formData = new FormData(form);
+                const userName = formData.get('userName');
+                const userEmail = formData.get('userEmail');
+                
+                // Fixed values for campaign
+                const recipientEmail = 'cskbes@gmail.com';
+                const subject = 'Request for Intervention: Opposition to Removal of Principal Garmon from Broadway Elementary';
+                const template = `As a parent at Broadway Elementary School in Region West, I am writing to request your intervention regarding the District's decision to remove Principal Garmon from our school. <strong>Given your direct oversight of Broadway Elementary, your leadership in reversing this misguided decision is crucial.</strong>
+
+<strong>This appears to be a transparent attempt to scapegoat Principal Garmon for systemic failures that predate her leadership.</strong>
+
+Principal Garmon has demonstrated unwavering dedication to Broadway Elementary School throughout her tenure of over 10 years. Her commitment to our students, staff, and families has been evident even during the challenging circumstances of the past two years. She is a responsive, empathetic and tirelessly dedicated leader <strong>who has been forced to manage crises not of her making</strong>.
+
+Perhaps most importantly, Principal Garmon possesses an irreplaceable understanding of Broadway Elementary's unique history and complex needs. She has witnessed firsthand the evolution of our school and the development of our dual language immersion programs. This institutional knowledge cannot be easily transferred to a new administrator who would be starting from scratch.
+
+<strong>As Region West Superintendent, you understand that</strong> the complicated dynamics between our two language immersion programs have existed for over 10 years—long before Principal Garmon's leadership. These are systemic issues that require nuanced leadership and deep understanding of each program's distinct needs and challenges. Principal Garmon has navigated these complexities with skill and has worked diligently to bridge gaps between the programs, despite the constraints placed upon her by the District throughout her tenure following the UCP complaint filed only six weeks into her principalship.
+
+Replacing Principal Garmon with an outsider who lacks this crucial background knowledge and experience with dual language immersion programs will exacerbate, rather than resolve, the underlying issues our school faces—issues she inherited (not created) due to decisions made by LAUSD over the years. The funding disparities, enrollment challenges, and program tensions that currently exist will not simply disappear with a change in leadership—they require thoughtful, informed solutions from someone who truly understands our school's unique context.
+
+<strong>This decision represents a failure to address the real systemic issues.</strong> Instead of confronting the difficult work of addressing systemic inequities and decades of poor planning, this action takes the easy path of removing a dedicated principal who is trying to make the best of an impossible situation created by District policies.
+
+<strong>The real issue is historical District decisions and actions, not her leadership. Removing Principal Garmon would devastate the school, continue the pattern of neglect toward Broadway, and inflame rather than reduce existing tensions.</strong>
+
+I urge you to use your authority as Region West Superintendent to advocate for reconsidering this decision and instead work collaboratively with Principal Garmon to address the systemic issues that face our school. Her expertise, dedication, and institutional knowledge make her the right person to lead Broadway Elementary through these challenges.
+
+<strong>Your voice and advocacy for our school community matters tremendously.</strong>
+
+Sincerely,
+
+${userName}
+
+Parent of Broadway Elementary School Student`;
+
+                // FIRST EMAIL: Send to Region West Superintendent
+                const emailParams = {
+                    to_email: recipientEmail,
+                    from_name: userName,
+                    from_email: userEmail,
+                    subject: subject,
+                    message: template
+                };
+
+                console.log('Sending email to Region West Superintendent:', recipientEmail);
+                const response = await emailjs.send(
+                    EMAILJS_SERVICE_ID,
+                    EMAILJS_TEMPLATE_ID,
+                    emailParams
+                );
+
+                // SECOND EMAIL: Send confirmation to sender
+                const confirmationParams = {
+                    to_email: userEmail,
+                    from_name: 'Support Principal Garmon Campaign',
+                    from_email: 'noreply@campaign.com',
+                    subject: 'Confirmation: Your request for intervention was sent',
+                    message: `Hi ${userName},
+
+Thank you for requesting intervention for Principal Garmon!
+
+Your email has been successfully sent to the Region West Superintendent (cskbes@gmail.com) with the following details:
+
+Subject: Request for Intervention: Opposition to Removal of Principal Garmon from Broadway Elementary
+Sent at: ${new Date().toLocaleString()}
+
+Here's a copy of what was sent:
+
+---
+${template}
+---
+
+Thank you for your advocacy in supporting Principal Garmon at Broadway Elementary School!
+
+Best regards,
+Support Principal Garmon Campaign Team`
+                };
+
+                console.log('Sending confirmation email to:', userEmail);
+                await emailjs.send(
+                    EMAILJS_SERVICE_ID,
+                    EMAILJS_TEMPLATE_ID,
+                    confirmationParams
+                );
+
+                showStatus('✅ Email sent successfully to Region West Superintendent! You should receive a confirmation copy shortly.');
+                form.reset();
+                updatePreview();
+
+            } catch (error) {
+                console.error('Error sending email:', error);
+                showStatus('❌ Failed to send email. Please try again or contact support.', true);
+            } finally {
+                sendButton.disabled = false;
+                sendButton.textContent = '🚀 Send Email to Region West Superintendent';
+            }
+        });
+    </script>
+</body>
+</html>
